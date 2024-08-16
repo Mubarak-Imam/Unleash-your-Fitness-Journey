@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unleash Your Fitness Journey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Unleash Your Fitness Journey</h1>
+        <h2>We help you design your custom workout and diet plan</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            <label for="image">Upload an image for body fat percentage analysis:</label>
+            <input type="file" name="image" id="image" capture="camera" accept="image/*">
+
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+
+            <label for="age">Age:</label>
+            <input type="number" name="age" id="age" required>
+
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="height">Height (cm):</label>
+            <input type="number" name="height" id="height" required>
+
+            <label for="weight">Weight (kg):</label>
+            <input type="number" name="weight" id="weight" required>
+
+            <label for="waist">Waist Size (cm):</label>
+            <input type="number" name="waist" id="waist">
+
+            <label for="lifestyle">Lifestyle:</label>
+            <select name="lifestyle" id="lifestyle" required>
+                <option value="Sedentary">Sedentary</option>
+                <option value="Active">Active</option>
+                <option value="Very Active">Very Active</option>
+            </select>
+
+            <label for="diet">Diet (Veg/Non-Veg):</label>
+            <select name="diet" id="diet" required>
+                <option value="Vegan">Vegan</option>
+                <option value="Vegetarian">Vegetarian</option>
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+            </select>
+
+            <label for="dietary_complications">Dietary Complications (e.g., Diabetes, Gluten Allergy):</label>
+            <input type="text" name="dietary_complications" id="dietary_complications">
+
+            <label for="current_city">Current City:</label>
+            <input type="text" name="current_city" id="current_city" required>
+
+            <label for="plan_duration">Plan Duration:</label>
+            <select name="plan_duration" id="plan_duration" required>
+                <option value="3 Months">3 Months</option>
+                <option value="6 Months">6 Months</option>
+                <option value="12 Months">12 Months</option>
+            </select>
+
+            <label for="food_preference">Food Preference (e.g., Italian, Chinese, Indian):</label>
+            <input type="text" name="food_preference" id="food_preference">
+
+            <input type="submit" value="Generate Plan">
+        </form>
+
+        <div class="plan-section">
+            <h3>Your Customized Fitness Plan</h3>
+
+            <p><strong>Body Fat Percentage Range:</strong> {{ body_fat_percentage }}</p>
+            <p><strong>BMI:</strong> {{ bmi }}</p>
+
+            <div class="workout-plan">
+                <h3>Workout Plan:</h3>
+                {{ workout_plan | safe }}
+            </div>
+
+            <div class="diet-plan">
+                <h3>Diet Plan:</h3>
+                {{ diet_plan | safe }}
+            </div>
+
+            <div class="note">
+                <p><strong>Note:</strong> This plan is for reference only. Please consult with a certified trainer and nutritionist before starting any new diet or exercise program.</p>
+            </div>
+
+            <div class="gym-list">
+                <h3>Top 5 Gyms in {{ current_city }}:</h3>
+                <ul>
+                    {% for gym in top_gyms %}
+                    <li><a href="https://www.google.com/search?q={{ gym }}" target="_blank">{{ gym }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
